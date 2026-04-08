@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savantik's Poker Palace</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle, #2e7d32 0%, #1b5e20 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5), 0 0 20px #ffd700;
+            text-align: center;
+            max-width: 400px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        h1 {
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to bottom, #ffd700, #b8860b);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ffd700;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>♠️ Poker Palace ♥️</h1>
+        <p>Welkom bij de meest exclusieve Poker Simulator op GitHub Pages. Gebouwd met passie, gehost voor de winnaars.</p>
+        
+        <!-- De Download Knop -->
+        <button class="btn" onclick="downloadCode()">Download Broncode 📥</button>
+    </div>
+
+    <script>
+        function downloadCode() {
+            const code = document.documentElement.outerHTML;
+            const blob = new Blob([code], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'poker_site.html';
+            a.click();
+        }
+    </script>
+
+</body>
+</html>
