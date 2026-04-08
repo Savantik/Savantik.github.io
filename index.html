@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,51 +12,48 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px;
         }
         .card {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             padding: 40px;
-            border-radius: 20px;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5), 0 0 20px #ffd700;
+            border-radius: 30px;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 50px rgba(0,0,0,0.7), 0 0 30px #ffd700;
             text-align: center;
-            max-width: 400px;
+            max-width: 600px; /* Iets breder voor de grote foto */
             animation: fadeIn 1.5s ease-out;
         }
         h1 {
             color: #ffd700;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0 0 20px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 4px;
+            margin: 0 0 15px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            font-size: 2.5rem;
         }
         p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            color: #f0f0f0;
         }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to bottom, #ffd700, #b8860b);
-            color: #000;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
+        .poker-image {
+            width: 100%; /* Maakt de foto groot */
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease;
         }
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #ffd700;
+        .poker-image:hover {
+            transform: scale(1.02); /* Klein effect als je eroverheen gaat */
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -65,22 +62,11 @@
 
     <div class="card">
         <h1>♠️ Poker Palace ♥️</h1>
-        <p>Welkom bij de meest exclusieve Poker Simulator op GitHub Pages. Gebouwd met passie, gehost voor de winnaars.</p>
+        <p>Welcome to the most exclusive Poker Simulator on GitHub Pages. Built with passion, hosted for winners.</p>
         
-        <!-- De Download Knop -->
-        <button class="btn" onclick="downloadCode()">Download Broncode 📥</button>
+        <!-- De grote foto -->
+        <img src="pok.jpeg" alt="Poker Experience" class="poker-image">
     </div>
-
-    <script>
-        function downloadCode() {
-            const code = document.documentElement.outerHTML;
-            const blob = new Blob([code], { type: 'text/html' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'poker_site.html';
-            a.click();
-        }
-    </script>
 
 </body>
 </html>
