@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -492,6 +491,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             display: block;
             transition: transform 0.5s ease, filter 0.4s ease;
             filter: brightness(0.85);
@@ -553,6 +553,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             display: block;
             transition: transform 0.5s ease, filter 0.4s ease;
             filter: brightness(0.85);
@@ -664,11 +665,29 @@
             .hero { padding: 120px 0 60px; }
             .about-grid { grid-template-columns: 1fr; gap: 36px; }
             .project-hero { grid-template-columns: 1fr; }
-            .project-hero-image { height: 220px; }
+            .project-hero-image {
+                height: 220px;
+                order: -1; /* image on top on mobile */
+            }
+            .project-hero-image img {
+                object-fit: cover;
+                object-position: center center;
+            }
             .project-hero-info { padding: 28px; }
             .project-hero-image-overlay { background: linear-gradient(0deg, rgba(26,29,39,0.8) 0%, rgba(26,29,39,0.0) 60%); }
             .projects-grid { grid-template-columns: 1fr; }
             .stats { gap: 24px; }
+
+            /* Fix stretched images on mobile */
+            .project-card-image {
+                height: 200px;
+            }
+            .project-card-image img {
+                object-fit: cover;
+                object-position: center center;
+                width: 100%;
+                height: 100%;
+            }
         }
     </style>
 </head>
