@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savantik — Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0a0b0f;
+            --bg2: #0f1117;
+            --bg3: #161820;
+            --surface: #1a1d27;
+            --surface2: #1f2235;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.18);
+            --accent: #6c63ff;
+            --accent2: #a78bfa;
+            --accent3: #38bdf8;
+            --green: #4ade80;
+            --text: #e8eaf0;
+            --text2: #9ca3c4;
+            --text3: #5c6385;
+            --gold: #f59e0b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ── Background grid ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Glow blobs ── */
+        .glow-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+        }
+        .glow-blob-1 {
+            width: 600px; height: 600px;
+            background: var(--accent);
+            top: -200px; left: -150px;
+        }
+        .glow-blob-2 {
+            width: 500px; height: 500px;
+            background: var(--accent3);
+            bottom: -100px; right: -150px;
+            opacity: 0.15;
+        }
+
+        /* ── Layout ── */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10,11,15,0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s ease;
+        }
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .nav-logo span { color: var(--accent2); }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text2);
+            text-decoration: none;
+            transition: color 0.2s;
+            letter-spacing: 0.02em;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108,99,255,0.1);
+            border: 1px solid rgba(108,99,255,0.25);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 28px;
+            animation: fadeUp 0.8s cubic-bezier(.16,1,.3,1) both;
+        }
+        .hero-eyebrow-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.85); }
+        }
+
+        .hero-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 9vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            animation: fadeUp 0.8s 0.08s cubic-bezier(.16,1,.3,1) both;
+        }
+        .hero-name-gradient {
+            background: linear-gradient(135deg, #e8eaf0 0%, var(--accent2) 50%, var(--accent3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            color: var(--text2);
+            margin-bottom: 16px;
+            animation: fadeUp 0.8s 0.14s cubic-bezier(.16,1,.3,1) both;
+        }
+        .hero-title strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .hero-desc {
+            max-width: 560px;
+            margin: 0 auto 44px;
+            font-size: 1.05rem;
+            color: var(--text3);
+            line-height: 1.75;
+            animation: fadeUp 0.8s 0.2s cubic-bezier(.16,1,.3,1) both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.26s cubic-bezier(.16,1,.3,1) both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(108,99,255,0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108,99,255,0.5);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--border-hover);
+            background: var(--surface);
+            transform: translateY(-2px);
+        }
+
+        /* ── Stats strip ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.32s cubic-bezier(.16,1,.3,1) both;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            display: block;
+        }
+        .stat-num span { color: var(--accent2); }
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text3);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ── Section headings ── */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .section-sub {
+            font-size: 1rem;
+            color: var(--text3);
+            max-width: 480px;
+        }
+
+        /* ── About section ── */
+        .about {
+            padding: 20px 0 80px;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 48px;
+        }
+        .about-text p {
+            color: var(--text2);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-size: 0.975rem;
+        }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .skill-tag {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text2);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .skill-tag:hover {
+            border-color: var(--accent2);
+            color: var(--accent2);
+        }
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent3));
+        }
+        .about-card-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .about-card-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .about-card-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(108,99,255,0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .about-card-label {
+            font-size: 0.75rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 500;
+        }
+        .about-card-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── Projects ── */
+        .projects { padding: 20px 0 100px; }
+
+        .projects-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Poker card — full width hero card */
+        .project-hero {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            min-height: 320px;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(108,99,255,0.06), rgba(56,189,248,0.04));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .project-hero:hover {
+            border-color: rgba(108,99,255,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(108,99,255,0.1);
+            transform: translateY(-4px);
+        }
+        .project-hero:hover::before { opacity: 1; }
+
+        .project-hero-info {
+            padding: 44px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        .project-type {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 14px;
+        }
+        .project-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text2);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .project-tag {
+            background: rgba(108,99,255,0.1);
+            border: 1px solid rgba(108,99,255,0.2);
+            color: var(--accent2);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 20px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: fit-content;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .project-link-btn:hover {
+            background: rgba(108,99,255,0.15);
+            border-color: var(--accent);
+            color: var(--accent2);
+        }
+        .project-link-arrow { transition: transform 0.2s; }
+        .project-hero:hover .project-link-arrow { transform: translateX(4px); }
+
+        .project-hero-image {
+            overflow: hidden;
+            position: relative;
+        }
+        .project-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.4s ease;
+            filter: brightness(0.85);
+        }
+        .project-hero:hover .project-hero-image img {
+            transform: scale(1.05);
+            filter: brightness(0.75);
+        }
+        .project-hero-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(26,29,39,0.6) 0%, rgba(26,29,39,0.0) 50%);
+        }
+
+        /* Small project cards grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .project-card.card-green::before { background: linear-gradient(135deg, rgba(74,222,128,0.06), transparent); }
+        .project-card.card-orange::before { background: linear-gradient(135deg, rgba(245,158,11,0.06), transparent); }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .project-card.card-green:hover { border-color: rgba(74,222,128,0.35); }
+        .project-card.card-orange:hover { border-color: rgba(245,158,11,0.35); }
+        .project-card:hover::before { opacity: 1; }
+
+        .project-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg3);
+        }
+        .project-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.4s ease;
+            filter: brightness(0.85);
+        }
+        .project-card:hover .project-card-image img {
+            transform: scale(1.08);
+            filter: brightness(0.7);
+        }
+        .project-card-image-placeholder {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--bg3), var(--surface2));
+        }
+        .project-card-badge {
+            position: absolute;
+            top: 14px; left: 14px;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .badge-green { background: rgba(74,222,128,0.2); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+        .badge-orange { background: rgba(245,158,11,0.2); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
+
+        .project-card-body {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .project-card-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .project-card-desc {
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .project-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .project-card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .project-card-tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .tag-green { background: rgba(74,222,128,0.1); color: var(--green); }
+        .tag-orange { background: rgba(245,158,11,0.1); color: var(--gold); }
+        .project-card-arrow {
+            font-size: 1.1rem;
+            color: var(--text3);
+            transition: color 0.2s, transform 0.2s;
+        }
+        .project-card:hover .project-card-arrow { color: var(--text); transform: translate(3px, -3px); }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 0;
+            text-align: center;
+            color: var(--text3);
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 1;
+        }
+        footer a { color: var(--text2); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--text); }
+        .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+        .footer-links { display: flex; gap: 28px; }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 120px 0 60px; }
+            .about-grid { grid-template-columns: 1fr; gap: 36px; }
+            .project-hero { grid-template-columns: 1fr; }
+            .project-hero-image { height: 220px; }
+            .project-hero-info { padding: 28px; }
+            .project-hero-image-overlay { background: linear-gradient(0deg, rgba(26,29,39,0.8) 0%, rgba(26,29,39,0.0) 60%); }
+            .projects-grid { grid-template-columns: 1fr; }
+            .stats { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glow-blob glow-blob-1"></div>
+<div class="glow-blob glow-blob-2"></div>
+
+<!-- Nav -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">S<span>.</span>avantik</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="https://github.com/Savantik" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-eyebrow">
+            <div class="hero-eyebrow-dot"></div>
+            Available for projects
+        </div>
+        <h1 class="hero-name">
+            <span class="hero-name-gradient">Savantik</span>
+        </h1>
+        <p class="hero-title">
+            <strong>Developer</strong> &amp; Digital Creator
+        </p>
+        <p class="hero-desc">
+            Building interactive web experiences — from card game simulators to fitness platforms and city guides. I craft projects that are fun to use and polished to the pixel.
+        </p>
+        <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">
+                View Projects
+                <span>↓</span>
+            </a>
+            <a href="https://github.com/Savantik" target="_blank" rel="noopener" class="btn btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<div class="container">
+    <div class="stats reveal">
+        <div class="stat-item">
+            <span class="stat-num">3<span>+</span></span>
+            <span class="stat-label">Projects Live</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num"><span>∞</span></span>
+            <span class="stat-label">Lines Written</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">1<span></span></span>
+            <span class="stat-label">Passion</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">0<span></span></span>
+            <span class="stat-label">Days Off</span>
+        </div>
+    </div>
+</div>
+
+<!-- About -->
+<section class="about" id="about">
+    <div class="container">
+        <p class="section-label reveal">About Me</p>
+        <h2 class="section-title reveal">Builder. Tinkerer. Creator.</h2>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <p>
+                    Hi, I'm Savantik — a developer with a love for building projects that blend interactivity and design. Whether it's a late-night poker session with friends or tracking fitness milestones, I find inspiration in everyday experiences and turn them into web apps.
+                </p>
+                <p>
+                    I enjoy the full stack: designing interfaces, wiring up logic, and shipping things that actually work. My projects range from gaming to fitness to local discovery — proving that the best side projects are the ones you'd actually use yourself.
+                </p>
+                <div class="about-skills">
+                    <span class="skill-tag">HTML &amp; CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">UI/UX Design</span>
+                    <span class="skill-tag">GitHub Pages</span>
+                    <span class="skill-tag">Responsive Design</span>
+                </div>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card-item">
+                    <div class="about-card-icon">🌍</div>
+                    <div>
+                        <div class="about-card-label">Based in</div>
+                        <div class="about-card-value">Antwerp, Belgium</div>
+                    </div>
+                </div>
+                <div class="about-card-item">
+                    <div class="about-card-icon">💼</div>
+                    <div>
+                        <div class="about-card-label">Focus</div>
+                        <div class="about-card-value">Web Development</div>
+                    </div>
+                </div>
+                <div class="about-card-item">
+                    <div class="about-card-icon">🚀</div>
+                    <div>
+                        <div class="about-card-label">Deployment</div>
+                        <div class="about-card-value">GitHub Pages</div>
+                    </div>
+                </div>
+                <div class="about-card-item">
+                    <div class="about-card-icon">🃏</div>
+                    <div>
+                        <div class="about-card-label">Current obsession</div>
+                        <div class="about-card-value">Building cool things</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section class="projects" id="projects">
+    <div class="container">
+        <div class="projects-header">
+            <div>
+                <p class="section-label reveal">My Work</p>
+                <h2 class="section-title reveal">Featured Projects</h2>
+            </div>
+            <p class="section-sub reveal" style="text-align:right; max-width: 280px;">
+                Click any card to visit the live project.
+            </p>
+        </div>
+
+        <!-- Poker — hero card -->
+        <a class="project-hero reveal" href="https://Savantik.github.io/poker" target="_blank" rel="noopener noreferrer">
+            <div class="project-hero-info">
+                <p class="project-type">🃏 Game · Featured</p>
+                <h3 class="project-name">Poker Palace</h3>
+                <p class="project-desc">
+                    An immersive browser-based poker simulator. Authentic rules, sleek green-felt aesthetic, and smooth animations — this is the poker experience you'd want to play every night.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">HTML Canvas</span>
+                    <span class="project-tag">CSS Animations</span>
+                    <span class="project-tag">Game Logic</span>
+                </div>
+                <span class="project-link-btn">
+                    Play Now <span class="project-link-arrow">→</span>
+                </span>
+            </div>
+            <div class="project-hero-image">
+                <img src="pok.jpeg" alt="Poker Palace — browser poker simulator">
+                <div class="project-hero-image-overlay"></div>
+            </div>
+        </a>
+
+        <!-- Two smaller cards -->
+        <div class="projects-grid">
+
+            <!-- DionOS -->
+            <a class="project-card card-green reveal" href="https://Savantik.github.io/dionos" target="_blank" rel="noopener noreferrer">
+                <div class="project-card-image">
+                    <img src="dionos.png" alt="DionOS — fitness website">
+                    <span class="project-card-badge badge-green">Fitness</span>
+                </div>
+                <div class="project-card-body">
+                    <h3 class="project-card-name">DionOS</h3>
+                    <p class="project-card-desc">
+                        A clean, modern fitness web app designed to help you track workouts, set goals, and stay consistent. Built for people who take their gains seriously.
+                    </p>
+                    <div class="project-card-footer">
+                        <div class="project-card-tags">
+                            <span class="project-card-tag tag-green">Fitness</span>
+                            <span class="project-card-tag tag-green">Tracking</span>
+                            <span class="project-card-tag tag-green">Web App</span>
+                        </div>
+                        <span class="project-card-arrow">↗</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Antwerpaurant -->
+            <a class="project-card card-orange reveal" href="https://Savantik.github.io/antwerpaurant" target="_blank" rel="noopener noreferrer">
+                <div class="project-card-image">
+                    <img src="antwerpaurant.png" alt="Antwerpaurant — Antwerp restaurant discovery">
+                    <span class="project-card-badge badge-orange">Discovery</span>
+                </div>
+                <div class="project-card-body">
+                    <h3 class="project-card-name">Antwerpaurant</h3>
+                    <p class="project-card-desc">
+                        Discover the best restaurants in Antwerp. A curated local guide helping you find great food in the city, from hidden gems to iconic spots.
+                    </p>
+                    <div class="project-card-footer">
+                        <div class="project-card-tags">
+                            <span class="project-card-tag tag-orange">Antwerp</span>
+                            <span class="project-card-tag tag-orange">Food</span>
+                            <span class="project-card-tag tag-orange">Discovery</span>
+                        </div>
+                        <span class="project-card-arrow">↗</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="https://github.com/Savantik" target="_blank" rel="noopener">GitHub</a>
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+            </div>
+            <p>Built by <strong>Savantik</strong> · Hosted on GitHub Pages</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
